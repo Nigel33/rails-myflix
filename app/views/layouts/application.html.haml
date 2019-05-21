@@ -8,6 +8,9 @@
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
   %body
+    %header
+    .alert-msg
+      = render 'shared/messages'
     %section.content.clearfix
       = yield
     %footer
