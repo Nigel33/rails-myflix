@@ -33,3 +33,7 @@ end
 def unfollow(user)
 	find("a[data-method='delete']").click
 end 
+
+def sign_out 
+	visit logout_path
+end 

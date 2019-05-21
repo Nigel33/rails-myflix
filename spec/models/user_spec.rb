@@ -11,6 +11,10 @@ describe User do
 	it { should validate_presence_of(:full_name) }
 	it { should validate_uniqueness_of(:email) }
 	it { should have_many(:queue_items) }
+ 
+	it_behaves_like "tokenable" do 
+		let(:object) { user }
+	end 
 
 	describe "#queued_video?" do 
 		it 'returns true when the user queued the video' do 
@@ -38,6 +42,23 @@ describe User do
 
 		it "returns false if user does not have a following relationship with another user" do 
 			expect(user.follows?(user2)).to eq(false)
+		end 
+	end 
+
+	describe "#follow" do 
+		before do 
+			@alice = Fabricate(:user)
+			@bob = Fabricate(:user)
+		end 
+
+		it "follows another user" do 
+			@alice.follow(@bob)
+			expect(@alice.follows?(@bob)).to eq(true)
+		end 
+
+		it "does not follow one self" do 
+			@alice.follow(@alice)
+			expect(@alice.follows?(@alice)).to eq(false)
 		end 
 	end 
 end 

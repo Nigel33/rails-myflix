@@ -5,6 +5,7 @@ Myflix::Application.routes.draw do
   get 'ui(/:action)', controller: 'ui'
  
   get 'register', controller: 'users', action: 'new'
+  get 'register/:token', to: "users#new_with_invitation_token", as: 'register_with_token'
   post 'register', controller: 'users', action: 'create', as: 'users'
 
   get 'login', controller: 'sessions', action: 'new'
@@ -16,16 +17,23 @@ Myflix::Application.routes.draw do
 
   get 'people', to: 'relationships#index'
 
+  get 'forgot_password', to: 'forgot_passwords#new'
+  get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'
+  get 'expired_token', to: 'pages#expired_token'
+
 
   resources :videos, only:[:show, :index] do 
     resources :reviews, only: [:create]
     collection do 
   		get '/search', to: 'videos#display'
   	end 
-  end 
+  end
 
   resources :users, only: [:show]
   resources :categories, only:[:show]
   resources :queue_items, only: [:create, :destroy]
   resources :relationships, only: [:destroy, :create]
+  resources :forgot_passwords, only: [:create]
+  resources :password_resets, only: [:show, :create]
+  resources :invitations, only: [:new, :create]
 end
