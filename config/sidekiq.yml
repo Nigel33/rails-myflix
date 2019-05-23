@@ -1,0 +1,21 @@
+:concurrency: 1
+:pidfile: tmp/pids/sidekiq.pid
+:logfile: log/sidekiq.log
+staging:
+  :concurrency: 2
+production:
+  :concurrency: 5
+:queues:
+  - default
+  - mailers
+  - notifier
+
+tasks: &tasks
+  NotifierJob:
+    # cron: '*/30 * * * *' does not work on ubuntu
+    every: ["2s"]
+    queue: notifier
+    description: 'Send notification mails each night'
+
+:schedule:
+  <<: *tasks
