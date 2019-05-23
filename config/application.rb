@@ -17,5 +17,9 @@ module Myflix
     end
 
     config.autoload_paths << "#{Rails.root}/lib"
+
+    Raven.configure do |config|
+      config.dsn = 'https://6e5975c5c7e0487da11f07df9a8488ad:81935755549c48989645c6be271bf683@sentry.io/1466214'
+    end
   end
 end

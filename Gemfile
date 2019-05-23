@@ -14,6 +14,7 @@ gem 'bootstrap_form', '~> 2.7'
 gem 'rails_12factor'
 gem 'sidekiq', '~> 4.1.0'
 gem 'unicorn'
+gem 'sentry-raven'
 
 group :development do
   gem 'thin'
