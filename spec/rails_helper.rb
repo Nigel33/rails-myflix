@@ -8,6 +8,8 @@ require 'rspec/rails'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 require "capybara/rails"
 require 'capybara/email/rspec'
+require 'sidekiq/testing'
+Sidekiq::Testing.inline!
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
