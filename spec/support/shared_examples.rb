@@ -11,3 +11,11 @@ shared_examples "tokenable" do
 		expect(object.token).to_not be_nil
 	end
 end 
+
+shared_examples "requires admin" do 
+	it "redirects to the videos path" do 
+		session[:user_id] = Fabricate(:user).id 
+		action
+		expect(response).to redirect_to videos_path
+	end 
+end 

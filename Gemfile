@@ -14,7 +14,11 @@ gem 'bootstrap_form', '~> 2.7'
 gem 'rails_12factor'
 gem 'sidekiq', '~> 4.1.0'
 gem 'unicorn'
+gem 'carrierwave'
+gem 'mini_magick'
 gem 'sentry-raven'
+gem 'stripe'
+gem 'figaro'
 
 group :development do
   gem 'thin'
