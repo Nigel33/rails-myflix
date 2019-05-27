@@ -19,7 +19,7 @@ gem 'mini_magick'
 gem 'sentry-raven'
 gem 'stripe'
 gem 'figaro'
-gem 'fog-aws'
+gem 'carrierwave-aws'
 
 group :development do
   gem 'thin'
