@@ -8,7 +8,7 @@ $(function() {
 	});
 });
 
-let stripeResponseHandler = function(status, response) {
+var stripeResponseHandler = function(status, response) {
   var $form = $('#payment-form').find('form');
 
   if (response.error) { // Problem!
