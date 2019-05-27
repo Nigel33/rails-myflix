@@ -6,12 +6,13 @@ CarrierWave.configure do |config|
 
     # Configuration for Amazon S3
   if Rails.env.staging? || Rails.env.production?
-    config.storage = :fog
+    config.fog_provider = 'fog/aws'
     config.fog_credentials = {
       :provider              => 'AWS',
       :aws_access_key_id     => ENV['S3_KEY'],
       :aws_secret_access_key => ENV['S3_SECRET'],
     }
+    config.storage = :fog
     config.fog_directory = 'name_of_directory'
   else
     config.storage = :file
