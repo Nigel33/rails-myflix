@@ -9,7 +9,22 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 require "capybara/rails"
 require 'capybara/email/rspec'
 require 'sidekiq/testing'
+require 'vcr'
+Capybara.server_port = 52662
+
 Sidekiq::Testing.inline!
+
+VCR.configure do |c|
+  c.default_cassette_options = {
+      match_requests_on: [:uri, :method, :path]
+  }
+  c.cassette_library_dir = 'spec/support/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+  c.ignore_localhost = true
+end 
+
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -42,7 +57,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -63,6 +78,25 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name"
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+ 
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+ 
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+ 
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+ 
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 
 Shoulda::Matchers.configure do |config|

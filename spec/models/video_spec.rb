@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Video do 
 	let(:family_guy) { Fabricate(:video, title: 'Family Guy', created_at: 1.day.ago) }  
 	let(:happy_family) { Fabricate(:video, title: 'Happy Family', created_at:  2.day.ago) } 
-			
+		
 	context 'test association' do 
 		it { should belong_to(:category) }
 	end 
@@ -44,6 +44,23 @@ describe Video do
 
 		it 'returns no search results when input is blank' do
 			expect(Video.search_by_title('  ')).to eq([])
+		end 
+	end 
+
+	context "#rating" do 
+		before do 
+			@review1 = Fabricate(:review, rating: 3, video: family_guy)
+			@review2 = Fabricate(:review, rating: 5, video: family_guy)
+		end   
+	
+		it "should return an average rating of the reviews" do 
+			
+
+			expect(family_guy.rating).to eq(4.0)
+		end 
+
+		it "should return nil if there are no reviews" do 
+			expect(happy_family.rating).to eq(nil)
 		end 
 	end 
 end 

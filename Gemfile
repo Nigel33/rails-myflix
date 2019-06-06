@@ -20,29 +20,33 @@ gem 'sentry-raven'
 gem 'stripe'
 gem 'figaro'
 gem 'carrierwave-aws'
+gem 'draper'
+gem 'stripe_event'
 
 group :development do
   gem 'thin'
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'letter_opener'
 end
 
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails', '3.8'
+  gem 'letter_opener'
 end
 
 group :test do
   gem 'database_cleaner', '1.4.1'
   gem 'shoulda-matchers', '3.1.2'
-  gem 'vcr', '2.9.3'
   gem 'fabrication'
   gem 'faker'
   gem 'capybara'
   gem 'capybara-email'
   gem 'launchy'
+  gem 'vcr', '4.0'
+  gem 'webmock'
+  gem 'selenium-webdriver' 
 end
 
 group :production do
