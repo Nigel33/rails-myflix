@@ -21,6 +21,7 @@ rom_com = Category.create(name: 'Romantic Comedy')
  
 
 nigel = User.create(full_name: "Nigel Hing", password: "password", email: "nigelhing1@example.com", admin: true)
+john = User.create(full_name: "John Doe", password: "password", email: "johndoe@example.com", admin: false)
 
 # Review.create(user: nigel, video: monk, rating: 3, content: "This is a really interesting movie!")
 # Review.create(user: nigel, video: monk, rating: 5, content: "This is a really interesting movie!")
