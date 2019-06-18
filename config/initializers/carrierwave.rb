@@ -9,6 +9,7 @@ CarrierWave.configure do |config|
       :secret_access_key => ENV['S3_SECRET'],
       :region            => 'us-east-1'
     }
+    config.enable_processing = true
   else
     config.storage = :file
     config.enable_processing = Rails.env.development?
