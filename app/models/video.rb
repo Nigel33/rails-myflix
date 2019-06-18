@@ -1,4 +1,7 @@
 class Video < ActiveRecord::Base
+	include Elasticsearch::Model
+	
+
 	belongs_to :category
 	has_many :reviews
 	has_many :queue_item
@@ -7,6 +10,16 @@ class Video < ActiveRecord::Base
 	mount_uploader :small_cover, SmallCoverUploader
 
 	validates_presence_of :title, :description
+
+	mapping do
+    indexes :name, type: 'text' do
+      indexes :search, type: 'completion'
+    end
+  
+    indexes :title, type: 'text'
+    indexes :description, type: 'text'
+   
+  end
 
 	def self.search_by_title(search_term)
 		search_term.strip!

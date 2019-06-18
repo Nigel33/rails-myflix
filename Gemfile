@@ -22,6 +22,9 @@ gem 'figaro'
 gem 'carrierwave-aws'
 gem 'draper'
 gem 'stripe_event'
+gem 'elasticsearch', '6.0.1' 
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development do
   gem 'thin'
